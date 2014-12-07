@@ -43,7 +43,7 @@ int contract_t::set_pubkey (pubkey_t provider_pubkey,pubkey_t publisher_pubkey,i
 	}
 	else
 	{
-		if(provider_pubkey.empty())
+		if(publisher_pubkey.empty())
 		{
 			return 1;
 		}
