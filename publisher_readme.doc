@@ -1,0 +1,34 @@
+                                                      Publisher
+
+
+
+
+1. create public key k1
+2. request public key from the provider k2
+3. receive the public key from the provider k2
+4. create and sign a non-broad casted transaction T1 as follows:
+  1. sets up a payment of Zencoins to the output.
+  2. (2b) provider privete-key is required k2'.
+  3. publisher private-key is required k1'.
+
+5. create a refund transaction that is connected to the of , which send the back to the publisher, as follows:
+1. define  to .
+2. don't sign the transaction .
+3. send a copy of  to the provider.
+
+6. Receive the signed transaction .
+7. verify the provider signature in , else abort the contract.
+8. Sign the transaction .
+9. broad cast the transaction to the provider or to the .
+10. create a transaction as follows:
+  1. connects to on the in the same manner as does connect to .
+  2. has two as follows:
+      1. one points to .
+      2. one points to .
+  3. starts with all values allocated to the first  as does, but is not time locked.
+  4. Sign transaction.
+  5. Send transaction to the provider.
+
+11. Pay by adjust copy to allocate more value to the provider and less to own value.
+12. Resign the adjusted copy of with a new .
+13. send the new to the provider.
