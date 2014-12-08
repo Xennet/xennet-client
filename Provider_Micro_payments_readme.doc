@@ -1,4 +1,4 @@
-Provider
+                                                  Provider
 
  
  
@@ -6,13 +6,13 @@ Provider
 
 1.	(2) create and send public key  k2'  to the publisher   	
 2.	(5.3) receive and sign transaction T2' as follows:
-1.	Signature made using provider private key, associated with the provider public key k2'
-2.	Send the signed transaction T2'  to the publisher
-3.	Provider can see the Hash of T1' output  
+   1.	Signature made using provider private key, associated with the provider public key k2'
+   2.	Send the signed transaction T2'  to the publisher
+   3.	Provider can see the Hash of T1' output  
 3.	(9)  broadcast the transaction T1' to the blockchain DB  
 4.	(10.5)  verify the transaction  T3' output  as follows:
-1.	Verify if the output to itself is of the expected value
-2.	Verify the publisher signature private key
+   1.	Verify if the output to itself is of the expected value
+   2.	Verify the publisher signature private key
 5.	(13) the provider adjust his T3' copy to match the new amounts of Zencoins  
 
 
