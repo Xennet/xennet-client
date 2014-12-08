@@ -11,24 +11,25 @@
   2. (2b) provider privete-key is required k2'.
   3. publisher private-key is required k1'.
 
-5. create a refund transaction that is connected to the of , which send the back to the publisher, as follows:
-1. define  to .
-2. don't sign the transaction .
-3. send a copy of  to the provider.
+5. create a refund transaction T2 that is connected to the output of T1, which send the Zencoins
+   back to the publisher, as follows:
+  1. define Time Lock to T2.
+  2. don't sign the transaction T2.
+  3. send a copy of T2 to the provider.
 
-6. Receive the signed transaction .
-7. verify the provider signature in , else abort the contract.
-8. Sign the transaction .
-9. broad cast the transaction to the provider or to the .
-10. create a transaction as follows:
-  1. connects to on the in the same manner as does connect to .
-  2. has two as follows:
-      1. one points to .
-      2. one points to .
-  3. starts with all values allocated to the first  as does, but is not time locked.
-  4. Sign transaction.
-  5. Send transaction to the provider.
+6. (2b) Receive the signed transaction T2.
+7. verify the provider signature private-key in T2, else abort the contract.
+8. Sign the transaction T1.
+9. broad cast the transaction T1 to the provider or to the output.
+10. (3) create a transaction T3 as follows:
+  1. T3 connects to T1 on the block chain DB in the same manner as T2 does connect to T1 output.
+  2. T3 has two outputs as follows:
+      1. one output points to k1 .
+      2. one output points to k2 .
+  3. T3 starts with all values allocated to the first  output as T2 does, but T3 is not time locked.
+  4. Sign T3 transaction.
+  5. Send T3 transaction to the provider.
 
-11. Pay by adjust copy to allocate more value to the provider and less to own value.
-12. Resign the adjusted copy of with a new .
-13. send the new to the provider.
+11. (4b)Pay by adjust T3 copy to allocate more value to the provider output and less to own value.
+12. Resign the adjusted copy of T3 with a new .
+13. send the new private key to the provider.
