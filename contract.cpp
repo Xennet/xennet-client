@@ -32,7 +32,7 @@ contract_t::contract_t(pubkey_t initial_provider_pubkey,pubkey_t initial_publish
 int contract_t::set_pubkey (pubkey_t provider_pubkey,pubkey_t publisher_pubkey,int which_pubkey)
 {
 // which_pubkey=0 for provider, which_pubkey=1 for publisher
-// return 1 if pubkey is empty, return 0 if pubkey is ok (neede for log error manager file)
+// return 1 if pubkey is empty, return 0 if pubkey is ok
 	if (which_pubkey==0)
 	{
 		if(provider_pubkey.empty())
@@ -43,7 +43,7 @@ int contract_t::set_pubkey (pubkey_t provider_pubkey,pubkey_t publisher_pubkey,i
 	}
 	else
 	{
-		if(publisher_pubkey.empty())
+		if(provider_pubkey.empty())
 		{
 			return 1;
 		}
@@ -64,3 +64,7 @@ pubkey_t contract_t::get_pubkey (int which_pubkey)
 		return publisher;
 	}
 }
+
+
+
+
