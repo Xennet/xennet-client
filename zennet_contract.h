@@ -29,29 +29,14 @@ typedef string coins_t;
 // 	TO DO
 typedef string sig_t;
 
-// 	tx_t class is for the "logical deposit box" class
-//	declaration in the micropayment protocol
-class tx_t
-{
-public:
-// 	TO DO(functions,etc)
-
-private:
-//	TO DO
-	vector<pubkey_t> inputs_vector;
-//  TO DO
-	map<pubkey_t,coins_t> output_object;
-//	deposit_sig member is the deposit signature string declaration
-	sig_t deposit_sig;
-};
-
 // contract_t class is the zennet contract class template declaration
 //template <class B_Type>
 class contract_t
 {
 public:
 //	TO DO(functions,etc)
-	void set_pubkey (pubkey_t provider_pubkey,pubkey_t publisher_pubkey);
+	int set_pubkey (pubkey_t provider_pubkey,pubkey_t publisher_pubkey,int which_pubkey);
+	pubkey_t get_pubkey (int which_pubkey);
 	contract_t();
 	contract_t(pubkey_t initial_provider_pubkey,pubkey_t initial_publisher_pubkey);
 
@@ -74,11 +59,6 @@ private:
 //	the class member "spec_t" is the specification STL object
 	map<const vm_feature_t,spec_t_string > spec_t;
 
-//	the class member "tx_contract" is the Zennet contract deposit object
-//  which is declared by the tx_t class template for the micropayment
-//	protocol purposes
-	tx_t tx_contract;
-
 //	the class member "contract_sig" is the contract signature
 //  string declaration
 	sig_t contract_sig;
@@ -88,3 +68,4 @@ bool negotiate(contract_t provider_contract,contract_t publisher_contract);
 
 
 #endif /* CONTRACT_H_ */
+
