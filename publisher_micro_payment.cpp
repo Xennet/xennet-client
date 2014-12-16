@@ -79,30 +79,55 @@ int tx_t::set_lock_time(double lt)
 	return 0;
 }
 
-
-
-tx_t::tx_t(double init_lock_time,sig_t init_multi_sig)
+tx_t::tx_t()
 {
-	lock_time=init_lock_time;
-	multi_sig=init_multi_sig;
+	lock_time=0;
+	multi_sig="new";
 }
 
-pubkey_t pub_micro::request_publisher_pubkey()
+pub_micro::pub_micro()
+{
+	T1.lock_time=0;
+	T2.lock_time=0;
+	T1.multi_sig="new";
+	T2.multi_sig="new";
+}
+
+int pub_micro::request_publisher_pubkey()
 {
 // request public key from publisher(own) wallet
 	pubkey_t new_pubkey;
+	new_pubkey.clear();
 	cout<<"publisher wallet, please create a public key for publisher\n";
 	cin>>new_pubkey;
-	return new_pubkey;
+	if(new_pubkey.empty())
+	{
+		return 1;
+	}
+	else
+	{
+		publisher=new_pubkey;
+		return 0;
+	}
 }
 
-pubkey_t pub_micro::request_provider_pubkey()
+int pub_micro::request_provider_pubkey()
 {
 // request public key from provider wallet
 	pubkey_t new_pubkey;
+	new_pubkey.clear();
 	cout<<"provider wallet, please send a public key for provider\n";
 	cin>>new_pubkey;
-	return new_pubkey;
+	if(new_pubkey.empty())
+	{
+		return 1;
+	}
+	else
+	{
+		provider=new_pubkey;
+		return 0;
+	}
+
 }
 
 
