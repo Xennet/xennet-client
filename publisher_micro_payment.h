@@ -44,15 +44,15 @@ public:
 //	TO DO
 	int set_lock_time(double lt);
 //	TO DO
-	tx_t(double init_lock_time,sig_t init_multi_sig);
-	~tx_t();
+	tx_t();
+
 private:
 //	TO DO
 //	vector<pubkey_t> inputs_vector;
-	inputs_vector input;
+	inputs_vector inputs;
 //  TO DO
 //	map<pubkey_t,coins_t> output_object;
-	output_object output;
+	output_object outputs;
 //	deposit_sig member is the deposit multi signature string declaration
 	sig_t multi_sig;
 //  lock time of the transaction in days
@@ -63,11 +63,11 @@ private:
 class pub_micro
 {
 public:
-	pubkey_t request_publisher_pubkey();
-	pubkey_t request_provider_pubkey();
+	int request_publisher_pubkey();
+	int request_provider_pubkey();
 	int set_pubkey (pubkey_t provider_pubkey,pubkey_t publisher_pubkey,int which_pubkey);
 	pubkey_t get_pubkey (int which_pubkey);
-
+	pub_micro();
 
 private:
 	//  the class member "publisher" is a string public key
