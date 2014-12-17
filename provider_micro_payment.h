@@ -133,7 +133,7 @@ private:
 	provider_pubkey_t providerpubkey;
 	void SetDefault();
 	// Trx implement the provider's transactions (t1,t2)
-	struct Trx trx_t;
+	class CTrx trx_t;
 	// ProviderWallet implement the provider's wallet operations
 	struct ProviderWallet provider_wallet_t;
 };
