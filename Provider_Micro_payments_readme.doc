@@ -1,18 +1,54 @@
-                                                  Provider
 
- 
- 
- 
 
-1.	(2) create and send public key  k2'  to the publisher   	
-2.	(5.3) receive and sign transaction T2' as follows:
-   1.	Signature made using provider private key, associated with the provider public key k2'
-   2.	Send the signed transaction T2'  to the publisher
-   3.	Provider can see the Hash of T1' output  
-3.	(9)  broadcast the transaction T1' to the blockchain DB  
-4.	(10.5)  verify the transaction  T3' output  as follows:
-   1.	Verify if the output to itself is of the expected value
-   2.	Verify the publisher signature private key
-5.	(13) the provider adjust his T3' copy to match the new amounts of Zencoins  
 
+
+PROVIDER MICROPAYMENTS FLOW
+
+Terms usage:
+K1 = publisher public key
+K2 = provider public key
+T1 = Transaction T1
+T2 = Refund transaction T2 connected to T1 output (with time lock)
+T3 = Refund transaction T3 connected to T1 (same as T2) but with two outputs for K1 and K2 and without time lock
+C1 = Alternative Contract C1
+C2 = Contract C2
+
+
+1. Receive a specifications and rate vector on a dally basic (???) according to canonical benchmarks
+2. Receive Ann from publisher
+3. Create contract c2 with specifications and rates vector 
+4. Send contract c2 to publisher
+5. Receive agree notification on c2 from the publisher or receive alternative contract c1 from publisher with new terms, until both parts agreed. (Or abort???)
+6. Update c2 with the agreed terms if necessary
+7. Create public key k2
+8. Sign contract c2 with k2
+9. Request public key k1 from the publisher
+10.Receive public key k1 from publisher
+11.Update public key k1 from publisher in contract c2
+12.Request multi signature address from the provider wallet  
+13.Receive multi signature address from the  provider wallet
+14.Create a transaction T1 as follows:
+     1. Create  T1
+     2. Sign  T1 with provider public key k2
+     3. Update T1 publisher public key k1
+     4. Update T1 with a payment of Zencoins
+     5. Update T1 output to multi signature address
+     6. Update T1 input to provider address
+15.Create a refund transaction T2 as follows:
+     1. create T2
+     2. Define a time lock and update it to T2
+     3. Sign T2 with provider private key k2
+     4. Update T2 input to multi signature address
+     5. Update T2 output to  provider address
+16.Send the signed refund transaction T2 to the publisher
+17.Receive the signed transaction T2 from publisher
+18.Verify the publisher signature in T2, else abort
+19.Send the signed transaction T1 to the publisher and to the multi signature address
+20.Create a new refund transaction T3 as follows:
+     1. Create T3 in the same manner as T2 input and output
+     2. Update T3 new amounts of Zencoins, which has been changed with respect to T1
+     3. Define and update time lock = 0 to T3
+     4. Sign T3
+     5. Send T3 to the publisher
+21.	  
 
