@@ -145,8 +145,10 @@ private:
 	public_key provider_pubkey_t;
 	// define the Publisher public key
 	public_key publisher_pubkey_t;
-	// define Contract sign flag. 0 is unsigned else signed
-	int Contract_sign_flag_t;
+	// define Contract provider sign flag. 0 is unsigned else signed
+	int Contract_provider_sign_flag_t;
+	// define Contract publisher sign flag. 0 is unsigned else signed
+	int Contract_publisher_sign_flag_t;
 	// define given frequency
 	input_frequency frequency_t;
 	// define given canonical benchmarks
@@ -188,11 +190,25 @@ public:
 	// Send Contract C2 to Publisher. function will return 0 is succeed else if not
 	int Send_Contract_C2_to_Publisher();
 
-	//
+	// Upodate contract c2 if necessary. function will return 0 is succeed else if not
+	int update_contract_c2();
 
-	// create new public key to the provider (k2) 
+	// create public key k2 to the provider  
 	public_key CreatePubkey();
-	// send the public key to the publisher (k2)
+
+	// Signed contract c2 with public key k2. function will update the Contract_provider_sign_flag_t and will return 0 is succeed else if not
+	int signed_contract_c2();
+
+	// Request public key k1 from Publisher
+	public_key request_pubkey_from_publisher();
+
+	// Recieve public key k1 from publisher. function will update the Contract_publisher_sign_flag_t and will return 0 is succeed else if not
+	//int recieve_pubkey_from_publisher();
+
+	// Update publisher signature k1 in contract c2. function will return 0 is succeed else if not
+	int update_publisher_sign_in_contract_c2();
+
+	// send the public key k2 to the publisher 
 	public_key SendPubkeyToPublisher();
 };
 
