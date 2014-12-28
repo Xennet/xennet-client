@@ -17,10 +17,18 @@
 #include "contractRavit.h"
 using namespace std;
 
-typedef std::string provider_pubkey_t;
-typedef vector<pubkey_t>  inputs_vector;
+//typedef vector<pubkey_t>  inputs_vector;
 
-/* Class for the public key*/
+// For class CProvider
+typedef std::string private_key;
+typedef std::string public_key;
+typedef std::string SpecAndRate_vector;
+typedef std::string input_frequency;
+typedef std::string input_canonical_benchmarks_vector;
+typedef std::string Publisher_Ann;
+typedef std::string contract_c;
+
+/* Class for the public key
 class CPubKey {
 public:
     // Construct an invalid public key.
@@ -70,7 +78,7 @@ private:
 
 };
 
-
+*/
 /******************************************************************/
 
 /* Class for the transactions */
@@ -113,29 +121,79 @@ private:
     unsigned char vch[32];
 
 	double lock_time;
+
+	// This function will check whether the 32-byte array pointed to by vch is valid keydata.
+    bool static Check(const unsigned char *vch);
 };
 
 /*
+	CProvider is the ZENNET Server which is a computer­ owner willing to participate and earn
+	The CProvider will:
+		- Will do some canonical benchmarks
+		- Will deals with the specifications & rate vactor (which refers to the ZENNET pricing algorithm) on a 
+			constant given frequency (given by the user or defined as a default) according to the canonical benchmarks
+		- Create negocialts and signed a Ccontract with the Publisher
+		- have a provider Cwallet 
+		- Create 3 Transactions: T1, T2 and T3
 */
 class CProvider
 {
-public:
-	// Constructors
-	CProvider();
-	CProvider(provider_pubkey_t providerpubkey);
-	// Distructor
-	~CProvider();
-	// create new public key to the provider (k2) 
-	provider_pubkey_t CreatePubkey();
-	// send the public key to the publisher (k2)
-	provider_pubkey_t SendPubkeyToPublisher();
 private:
-	provider_pubkey_t providerpubkey;
+	// define the CProvider private key
+	private_key provider_prvkey_t;
+	// define the CProvider public key
+	public_key provider_pubkey_t;
+	// define the Publisher public key
+	public_key publisher_pubkey_t;
+	// define Contract sign flag. 0 is unsigned else signed
+	int Contract_sign_flag_t;
+	// define given frequency
+	input_frequency frequency_t;
+	// define given canonical benchmarks
+	input_canonical_benchmarks_vector canonical_benchmarks_vector_t;
+	// define the specifications and rate vector
+	SpecAndRate_vector SpecAndRate_vector_t;
+	// define Publisher Announcement
+	Publisher_Ann Publisher_Ann_t;
+	// define the provider contract c2
+	contract_c contract_c2_t;
+	// define an alternative contract c1 (for terms negociations) 
+	contract_c contract_c1_t;
+
+
+
 	void SetDefault();
 	// Trx implement the provider's transactions (t1,t2)
 	class CTrx trx_t;
 	// ProviderWallet implement the provider's wallet operations
 	struct ProviderWallet provider_wallet_t;
+
+public:
+	// Constructors
+	CProvider();
+	//CProvider(provider_pubkey_t providerpubkey);
+	// Distructor
+	~CProvider();
+
+	// Recieve a specifications and rate vector on a constant given frequency 
+	// according to the canonical benchmarks
+	SpecAndRate_vector Recieve_SpecAndRate_vector(input_frequency input_frequency_p, input_canonical_benchmarks_vector input_canonical_benchmarks_vector_p);
+
+	// Recieve Announcement from Publisher
+	Publisher_Ann Recieve_Publisher_Ann();
+
+	// Create Contract C2 with specifications and rate vector
+	contract_c Create_contract_c2(SpecAndRate_vector SpecAndRate_vector_p);
+
+	// Send Contract C2 to Publisher. function will return 0 is succeed else if not
+	int Send_Contract_C2_to_Publisher();
+
+	//
+
+	// create new public key to the provider (k2) 
+	public_key CreatePubkey();
+	// send the public key to the publisher (k2)
+	public_key SendPubkeyToPublisher();
 };
 
 #endif /* PROVIDER_H_ */
