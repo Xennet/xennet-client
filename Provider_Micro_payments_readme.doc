@@ -14,7 +14,7 @@ C1 = Alternative Contract C1
 C2 = Contract C2
 
 
-1. Receive a specifications and rate vector on a dally basic (???) according to canonical benchmarks
+1. Receive a specifications and rate vector in a constant given frequency according to canonical benchmarks
 2. Receive Ann from publisher
 3. Create contract c2 with specifications and rates vector 
 4. Send contract c2 to publisher
