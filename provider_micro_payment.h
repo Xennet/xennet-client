@@ -110,7 +110,7 @@ public:
 private:
 	// Whether this private key is valid. We check for correctness when modifying the key data
     bool TrxValid;
-
+  
 	// The input vector
 	inputs_vector input;
 
