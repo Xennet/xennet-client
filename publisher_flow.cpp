@@ -16,7 +16,7 @@
 #include "publisher_flow.h"
 using namespace std;
 
-// To Do
+// 						Publisher Flow Process
 int publisher_flow()
 {
 
@@ -26,10 +26,12 @@ int publisher_flow()
 	contract_t provider_contract;
 	contract_t publisher_contract;
 
-//	ann process function
+//						ann process
+
 //	int publish_ann();
 
-//	negotiation process in while loop
+
+//						negotiation process
 	while(!agree)
 	{
 //  receive a contract "provider_contract" from provider
@@ -40,6 +42,8 @@ int publisher_flow()
 	agree = compare_contract(provider_contract,publisher_contract);
 	}
 
+//						micropayments process
+
 //	request the publisher public key from wallet
 	error_type=pub.request_publisher_pubkey();
 //	request provider public key from the provider
@@ -48,8 +52,23 @@ int publisher_flow()
 	error_type=publisher_contract.set_pubkey(pub.get_pubkey(0),pub.get_pubkey(1),0);
 //	update provider public key in contract
 	error_type=publisher_contract.set_pubkey(pub.get_pubkey(0),pub.get_pubkey(1),1);
-//	request multi signature from the wallet
+//	request multi signature from the wallet and update T1
 	error_type=pub.T1.request_multi_sig();
+//	request a digital signature from the wallet for T1
+	error_type=pub.T1.request_digital_signature();
+//	update T1 with publisher pubkey ?? or other inputs ??
+	pub.T1.set_input_vector(pub.get_pubkey(1));
+//  update T1 with multi signature as output and Zencoins
+	pub.T1.set_output_object(pub.T1.get_multi_sig(),1);
+//	request time_lock for T2 from the publisher wallet
+	error_type=pub.T2.request_time_lock(2);
+//	update T2 as "all money refund" to the publisher
+//	an option to send the word "end" to finish the input from wallet process
+	pub.T2.set_input_vector(pub.T1.get_multi_sig());
+//	update T2 output to publisher address
+	pub.T2.set_output_object(pub.get_pubkey(1),2);
+//	Send the refund transaction T2 to the provider
+	error_type=pub.T2.send_transaction();
 
 
 
