@@ -30,22 +30,51 @@ int tx_t::request_multi_sig()
 	return 0;
 };
 
+
+int tx_t::set_multi_sig(sig_t signature)
+{
+	if(signature.empty())
+	{
+		return 1;
+	}
+	else
+	{
+		multi_sig=signature;
+		return 0;
+	}
+}
+
 sig_t tx_t::get_multi_sig()
 {
 //	return the multi signature
-	sig_t tx_multi_sig;
-	tx_multi_sig=multi_sig;
-
 	return multi_sig;
-
 }
 
-int tx_t::set_input_vector()
+void tx_t::set_input_vector(pubkey_t pubkey)
 {
-// TO DO (with lukas data)
+	inputs.reserve(1);
+	inputs[1]=pubkey;
+}
+
+
+/*	// if wallet is in our cpp code
+	pubkey_t new_input;
+	int num_of_inputs,i;
+//	request from wallet the number of inputs
+	cout<<"publisher wallet, please send the number of inputs\n";
+	cin>>num_of_inputs;
+	inputs.reserve(num_of_inputs);
+	for (i=0;i<num_of_inputs;i++)
+	{
+		cout<<"publisher wallet, please send an input\n";
+		cin>>new_input;
+		inputs[i]=new_input;
+	}
 	return 0;
 
 }
+*/
+
 
 inputs_vector tx_t::get_input_vector()
 {
@@ -55,12 +84,30 @@ inputs_vector tx_t::get_input_vector()
 	return output;
 }
 
-int tx_t::set_output_object(output_object outputs)
+void tx_t::set_output_object(pubkey_t pubkey,int which_tx)
 {
-// TO DO (with lukas data)
-	output_object output;
+	coins_t new_coins;
+	cout<<"publisher wallet, please send an output coins for T"<<which_tx<< "\n";
+	cin>>new_coins;
+	outputs[pubkey]=new_coins;
+}
+/*	// if wallet is in our cpp code
+	int i;
+	pubkey_t new_output;
+	coins_t new_coins;
+	for(i=0;i<2;i++)
+	{
+		cout<<"publisher wallet, please send an output for T"<<which_tx<< "\n";
+		cin>>new_output;
+		cout<<"publisher wallet, please send an output coins for T"<<which_tx<< "\n";
+		cin>>new_coins;
+		outputs[new_output]=new_coins;
+	}
+
 	return 0;
 }
+*/
+
 
 output_object tx_t::get_output_object()
 {
@@ -69,28 +116,73 @@ output_object tx_t::get_output_object()
 	return output;
 }
 
-int tx_t::set_lock_time(double lt)
+int tx_t::request_digital_signature()
 {
-	if(lt==-1)
+//	request publisher wallet for a digital signature
+	sig_t new_signature;
+	new_signature.clear();
+	cout<<"publisher wallet, please create a digital signature for publisher\n";
+	cin>>new_signature;
+	if(new_signature.empty())
 	{
 		return 1;
 	}
-	lock_time=lt;
+	else
+	{
+		signature=new_signature;
+		return 0;
+	}
+}
+
+int tx_t::request_time_lock(int which_tx)
+{
+	double new_time_lock=0;
+	cout<<"publisher wallet, please define a time_lock for T"<<which_tx<<"\n";
+	cin>>new_time_lock;
+	if(new_time_lock>=0)
+	{
+		time_lock=new_time_lock;
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+int tx_t::set_time_lock(double tl)
+{
+	if(tl==-1)
+	{
+		return 1;
+	}
+	time_lock=tl;
+	return 0;
+}
+
+int tx_t::send_transaction()
+{
+//	send transaction with Linux (with Lukas)
 	return 0;
 }
 
 tx_t::tx_t()
 {
-	lock_time=0;
-	multi_sig="new";
+	time_lock=0;
+	multi_sig.empty();
 }
 
 pub_micro::pub_micro()
 {
-	T1.lock_time=0;
-	T2.lock_time=0;
-	T1.multi_sig="new";
-	T2.multi_sig="new";
+	T1.time_lock=0;
+	T2.time_lock=0;
+	T3.time_lock=0;
+	T1.multi_sig.empty();
+	T2.multi_sig.empty();
+	T3.multi_sig.empty();
+	T1.signature.empty();
+	T2.signature.empty();
+	T3.signature.empty();
 }
 
 int pub_micro::request_publisher_pubkey()
