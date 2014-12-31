@@ -1,10 +1,9 @@
-                                    Publisher side micro payments protocol algorithm
+                                    Publisher side flow with micro payments protocol algorithm
 
 
 1. publish Ann to providers.
 2. Receive contract C2 with specifications and rates according to canonical benchmarks of the provider.
-3. Send agree notification on C2 or send alternative contract C1 to the provider with new terms,
-   until both parties agreed.
+3. Send agree notification on C2 or send alternative contract C1 to the provider with new terms, until both parties agreed.
 4. Update C1 with agreed terms if necessary.
 5. Create public key K1.
 6. Sign contract C1 with K1.
@@ -14,26 +13,25 @@
 10. Request multi signature address from the publisher wallet.
 11. Receive multi signature address from the publisher wallet.
 12. Create a transaction T1 as follows:
-    1. create T1.
-    2. Sign T1 with publisher public key K1.
-    3. Update T1 with provider public key K2.
-    4. Update T1 with a payment of Zencoins.
-    5. Update T1 output to multi signature address.
-    6. Update T1 input to publisher address.
+                                    1. create T1.
+                                    2. (optional) Update T1 with provider public key K2.
+                                    3. Update T1 output with a payment of Zencoins.
+                                    4. Update T1 output to multi signature address.
+                                    5. Update T1 input to publisher address (transactions).
 13.  Create a refund transaction T2 as follows:
-    1. create T2.
-    2. Define a time lock and update it to T2 .
-    3. Don't sign T2.
-    4. Update T2 input to multi signature address.
-    5. Update T2 output to publisher address.
+                                    1. create T2.
+                                    2. Define a time lock and update it to T2 .
+                                    3. Don't sign T2.
+                                    4. Update T2 input to multi signature address.
+                                    5. Update T2 output to publisher address.
 14.  Send the refund transaction T2 to the provider (provider is adding a signature using his private key).
 15. Receive the signed transaction T2 from the provider.
 16. Verify the provider signature in T2, else abort the contract.
 17. Send the signed transaction T1 to the provider and to the multi signature address.
 18. Create a new refund transaction T3 as follows:
-    1. create T3 in the same manner as T2 input and output.
-    2. update T3 new amounts of Zencoins, which has been changed with respect to T1.
-    3. Define and update time lock = 0 to T3.
-    4. Sign T3.
-    5. Send T3 to the provider.
+                                    1. create T3 in the same manner as T2 input and output.
+                                    2. update T3 new amounts of Zencoins, which has been changed with respect to T1.
+                                    3. Define and update time lock = 0 to T3.
+                                    4. Sign T3.
+                                    5. Send T3 to the provider.
 19. 
