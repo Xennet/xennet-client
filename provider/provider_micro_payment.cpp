@@ -64,13 +64,34 @@ CProvider::~CProvider()
 {
 }
 
-bool CProvider::SetDefault()
+void CProvider::SetDefault()
 {
-	// TODO set all the CProvider members with default values
-
-	// reset all provider's variable to default value
-	//providerpubkey
-	return string::empty(provider_pubkey_t);//.IsNullOrEmpty();
+	// define the CProvider private key
+	CProvider::provider_prvkey_t = "";
+	// define the CProvider public key
+	CProvider::provider_pubkey_t = "";
+	// define the Publisher public key
+	CProvider::publisher_pubkey_t = "";
+	// define Contract provider sign flag. 0 is unsigned else signed
+	CProvider::Contract_provider_sign_flag_t = 0;
+	// define Contract publisher sign flag. 0 is unsigned else signed
+	CProvider::Contract_publisher_sign_flag_t = 0;
+	// define given frequency
+	CProvider::frequency_t = "";
+	// define given canonical benchmarks
+	CProvider::canonical_benchmarks_vector_t = "";
+	// define the specifications and rate vector
+	CProvider::SpecAndRate_vector_t = "";
+	// define Publisher Announcement
+	CProvider::Publisher_Ann_t = "";
+	// define the provider contract c2
+	CProvider::contract_c2_t = "";
+	// define an alternative contract c1 (for terms negociations) 
+	CProvider::contract_c1_t = "";
+	// Trx implement the provider's transactions (t1,t2)
+	CTrx CProvider::trx_t;
+	// ProviderWallet implement the provider's wallet operations
+	ProviderWallet CProvider::provider_wallet_t;
 }
 
 // Recieve a specifications and rate vector on a constant given frequency 
@@ -81,7 +102,7 @@ SpecAndRate_vector CProvider::Recieve_SpecAndRate_vector(input_frequency input_f
 	// TODO set the CProvider::SpecAndRate_vector_t and return it
 
 	// return the vector
-	return SpecAndRate_vector_t;
+	return CProvider::SpecAndRate_vector_t;
 }
 
 // Recieve Announcement from Publisher
@@ -90,7 +111,7 @@ Publisher_Ann CProvider::Recieve_Publisher_Ann()
 	// TODO recieve a Publisher announcement
 
 	// Set and return the CProvider::Publisher_Ann_t variable
-	return Publisher_Ann_t;
+	return CProvider::Publisher_Ann_t;
 }
 
 // Create Contract C2 with specifications and rate vector
@@ -98,14 +119,15 @@ contract_c CProvider::Create_contract_c2(SpecAndRate_vector SpecAndRate_vector_p
 {
 	// TODO Create a Contract c2 with the SpecAndRate_vector_p
 	// TODO return the contract
-	return contract_c2_t;
+	return CProvider::contract_c2_t;
 }
 
 // Send Contract C2 to Publisher. function will return 0 is succeed else if not
 int CProvider::Send_Contract_C2_to_Publisher()
 {
 	// TODO Send the contract c2 to the Publisher
-
+	cout<<"Provider: sending contract c2 to Publisher:";
+	cout<<CProvider::contract_c2_t; // TODO a desplay function to contract object
 	return 0;
 }
 
@@ -122,13 +144,14 @@ public_key CProvider::CreatePubkey()
 {
 	// TODO create public key k2 for the Provider and return it
 
-	return provider_pubkey_t;
+	return CProvider::provider_pubkey_t;
 }
 
 // Signed contract c2 with public key k2. function will update the Contract_provider_sign_flag_t and will return 0 is succeed else if not
 int CProvider::signed_contract_c2()
 {
 	// TODO
+	CProvider::Contract_provider_sign_flag_t = true;
 
 	return 0;
 }
@@ -137,8 +160,10 @@ int CProvider::signed_contract_c2()
 public_key CProvider::request_pubkey_from_publisher()
 {
 	// TODO request public key k1 from Publisher
+	cout<<"Provider: Requesting for public key k1 from Publisher";
+	cin>>CProvider::publisher_pubkey_t;
 
-	return publisher_pubkey_t;
+	return CProvider::publisher_pubkey_t;
 }
 
 // Recieve public key k1 from publisher. function will update the Contract_publisher_sign_flag_t and will return 0 is succeed else if not
@@ -152,7 +177,7 @@ public_key CProvider::request_pubkey_from_publisher()
 int CProvider::update_publisher_sign_in_contract_c2()
 {
 	// TODO 
-
+	CProvider::Contract_publisher_sign_flag_t = true;
 	return 0;
 }
 
@@ -160,8 +185,9 @@ int CProvider::update_publisher_sign_in_contract_c2()
 public_key CProvider::SendPubkeyToPublisher()
 {
 	// TODO
-
-	return provider_pubkey_t;
+	cout<<"Provider: Sending public key k2 to Publisher";
+	cout<<CProvider::provider_pubkey_t;
+	return CProvider::provider_pubkey_t;
 }
 
 
@@ -215,7 +241,7 @@ int pub_micro::set_pubkey (pubkey_t provider_pubkey,pubkey_t publisher_pubkey,in
 	{
 		if(provider_pubkey.empty())
 		{
-			return 1;
+			return 2;
 		}
 		publisher=publisher_pubkey;
 	}
