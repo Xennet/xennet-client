@@ -110,7 +110,7 @@ public:
 private:
 	// Whether this private key is valid. We check for correctness when modifying the key data
     bool TrxValid;
-  
+
 	// The input vector
 	inputs_vector input;
 
@@ -136,6 +136,7 @@ private:
 		- have a provider Cwallet 
 		- Create 3 Transactions: T1, T2 and T3
 */
+
 class CProvider
 {
 private:
@@ -162,8 +163,7 @@ private:
 	// define an alternative contract c1 (for terms negociations) 
 	contract_c contract_c1_t;
 
-
-
+	// function will reset all class members to default values
 	void SetDefault();
 	// Trx implement the provider's transactions (t1,t2)
 	class CTrx trx_t;
