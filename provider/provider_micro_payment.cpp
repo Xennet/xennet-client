@@ -12,47 +12,9 @@
 #include <vector>
 #include <string>
 #include<stdlib.h>
-//#include <stdio.h>
+#include <stdio.h>
 #include "provider_micro_payment.h"
 using namespace std;
-
-
-bool CTrx::Check(const unsigned char *vch) {
-};
-
-int CTrx::set_lock_time(double Lt)
-{
-	if(locktime_t==-1)
-	{
-		return 1;
-	}
-	lock_time_t=lt;
-	return 0;
-};
-
-// 	This function will request for the multi signature
-int CTrx::request_multi_sig()
-{
-};
-
-//  This function will get the multi signature
-sig_t CTrx::get_multi_sig()
-{
-};
-
-//	This function will set the input vector
-int CTrx::set_input_vector()
-{
-};
-
-// 	This function will return the input vector
-inputs_vector CTrx::get_input_vector()
-{
-
-};
-
-
-/****************************************************************/
 
 
 CProvider::CProvider()
@@ -66,32 +28,19 @@ CProvider::~CProvider()
 
 void CProvider::SetDefault()
 {
-	// define the CProvider private key
 	CProvider::provider_prvkey_t = "";
-	// define the CProvider public key
 	CProvider::provider_pubkey_t = "";
-	// define the Publisher public key
 	CProvider::publisher_pubkey_t = "";
-	// define Contract provider sign flag. 0 is unsigned else signed
 	CProvider::Contract_provider_sign_flag_t = 0;
-	// define Contract publisher sign flag. 0 is unsigned else signed
 	CProvider::Contract_publisher_sign_flag_t = 0;
-	// define given frequency
 	CProvider::frequency_t = "";
-	// define given canonical benchmarks
 	CProvider::canonical_benchmarks_vector_t = "";
-	// define the specifications and rate vector
 	CProvider::SpecAndRate_vector_t = "";
-	// define Publisher Announcement
 	CProvider::Publisher_Ann_t = "";
-	// define the provider contract c2
 	CProvider::contract_c2_t = "";
-	// define an alternative contract c1 (for terms negociations) 
 	CProvider::contract_c1_t = "";
-	// Trx implement the provider's transactions (t1,t2)
-	CTrx CProvider::trx_t;
-	// ProviderWallet implement the provider's wallet operations
-	ProviderWallet CProvider::provider_wallet_t;
+//	CTrx CProvider::trx_t;
+//	ProviderWallet CProvider::provider_wallet_t;
 }
 
 // Recieve a specifications and rate vector on a constant given frequency 
@@ -156,7 +105,7 @@ int CProvider::signed_contract_c2()
 	return 0;
 }
 
-// Request public key k1 from Publisher
+// Request and recieve public key k1 from Publisher
 public_key CProvider::request_pubkey_from_publisher()
 {
 	// TODO request public key k1 from Publisher
@@ -165,13 +114,6 @@ public_key CProvider::request_pubkey_from_publisher()
 
 	return CProvider::publisher_pubkey_t;
 }
-
-// Recieve public key k1 from publisher. function will update the Contract_publisher_sign_flag_t and will return 0 is succeed else if not
-//int recieve_pubkey_from_publisher()
-//{
-//	// TODO
-//	return 0;
-//}
 
 // Update publisher signature k1 in contract c2. function will return 0 is succeed else if not
 int CProvider::update_publisher_sign_in_contract_c2()
@@ -190,62 +132,3 @@ public_key CProvider::SendPubkeyToPublisher()
 	return CProvider::provider_pubkey_t;
 }
 
-
-
-
-
-
-/**********************************************
-provider_pubkey_t CProvider::CreatePubkey()
-{
-};
-
-// SendPubkeyToPublisher function will return 1 if provider public key is empty. 
-// Function will return the provider public key otherwise to the publisher
-provider_pubkey_t CProvider::SendPubkeyToPublisher()
-{
-	// check if provider public key is empty return 1
-	if (providerpubkey.empty())
-		return 1;
-	return providerpubkey;
-};
-
-
-//
-pubkey_t pub_micro::get_pubkey (int which_pubkey)
-{
-// which_pubkey=0 for provider, which_pubkey=1 for publisher
-	if (which_pubkey==0)
-	{
-		return provider;
-	}
-	else
-	{
-		return publisher;
-	}
-}
-
-int pub_micro::set_pubkey (pubkey_t provider_pubkey,pubkey_t publisher_pubkey,int which_pubkey)
-{
-// which_pubkey=0 for provider, which_pubkey=1 for publisher
-// return 1 if pubkey is empty, return 0 if pubkey is ok
-	if (which_pubkey==0)
-	{
-		if(provider_pubkey.empty())
-		{
-			return 1;
-		}
-		provider=provider_pubkey;
-	}
-	else
-	{
-		if(provider_pubkey.empty())
-		{
-			return 2;
-		}
-		publisher=publisher_pubkey;
-	}
-	return 0;
-}
-*/
- 
