@@ -21,7 +21,7 @@ using namespace std;
 
 typedef map<pubkey_t,coins_t> output_object;
 typedef vector<pubkey_t>  inputs_vector;
-
+typedef vector<pubkey_t>  pricing_vector;
 
 
 // 	tx_t class is for the "logical deposit box" class declaration
@@ -35,23 +35,35 @@ public:
 // 	TO DO
 	inputs_vector get_input_vector();
 //	TO DO
-	void set_output_object(pubkey_t pubkey,int which_tx);
+	void set_output_object(pubkey_t pubkey,coins_t coins);
 //	TO DO
-	output_object get_output_object();
+	coins_t request_coins(int which_tx);
+//	To Do
+	coins_t get_output_object(pubkey_t pubkey);
 // 	TO DO
+	coins_t calculate_coins();
+// 	To Do
 	int request_multi_sig();
-//  TO DO
+//  	TO DO
 	sig_t get_multi_sig();
 //	TO DO
 	int set_multi_sig(sig_t signature);
 //	TO DO
 	int request_digital_signature();
+//	To Do
+	sig_t get_digital_signature();
+//	To Do
+	int set_digital_signature(sig_t new_sig);
 //	TO DO
 	int request_time_lock(int which_tx);
 //	TO DO
 	int set_time_lock(double lt);
 //	To Do
-	int send_transaction();
+	int send_transaction(int which_address);
+//	To Do
+	int receive_transaction();
+//	To Do
+	int verify_signature(sig_t new_signature);
 //	TO DO
 	tx_t();
 
